@@ -3,13 +3,15 @@
 #include <stdio.h>
 #include "lists.h"
 
+/**
+ * insert_node - Inserts a number into a sorted singly linked list.
+ * @head: Double pointer to the head of the linked list.
+ * @number: The number to insert into the list.
+ *
+ * Return: The address of the new node, or NULL if it failed.
+ */
 listint_t *insert_node(listint_t **head, int number)
 {
-    //check if the link list is null
-    if (*head == NULL)
-    {
-        return(NULL);
-    }
     // create nodes to traverse the linked list
     listint_t *new;
     listint_t *current;
@@ -17,6 +19,12 @@ listint_t *insert_node(listint_t **head, int number)
     // assign nodes
     new = malloc(sizeof(listint_t));
     current = *head;
+    // check that the link list is not null
+    if (current == NULL)
+    {
+        return NULL;
+    }
+
     // Check if malloc succeeded
     if (new == NULL)
     {
