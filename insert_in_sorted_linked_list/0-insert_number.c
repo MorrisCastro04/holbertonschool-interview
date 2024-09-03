@@ -5,6 +5,11 @@
 
 listint_t *insert_node(listint_t **head, int number)
 {
+    //check if the link list is null
+    if (*head == NULL)
+    {
+        return(NULL);
+    }
     // create nodes to traverse the linked list
     listint_t *new;
     listint_t *current;
