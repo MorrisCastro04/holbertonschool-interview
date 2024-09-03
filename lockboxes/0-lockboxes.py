@@ -1,10 +1,11 @@
 #!/usr/bin/python3
-
 """
     You have n number of locked boxes in front of you.
     Each box is numbered sequentially from 0 to n - 1 and
     each box may contain keys to the other boxes.
 """
+
+
 def canUnlockAll(boxes):
     """
         solve the problem of
@@ -13,7 +14,7 @@ def canUnlockAll(boxes):
     openBoxes = {0}
     # have the keys
     keys = set(boxes[0])
-    
+
     # loop in the keys
     while keys:
         # take a key
