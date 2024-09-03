@@ -1,8 +1,15 @@
 #!/usr/bin/python3
 
-# method that determines if all the boxes can be opened
+"""
+    You have n number of locked boxes in front of you.
+    Each box is numbered sequentially from 0 to n - 1 and
+    each box may contain keys to the other boxes.
+"""
 def canUnlockAll(boxes):
-    # store the boxes that are open
+    """
+        solve the problem of
+        loockboxes
+    """
     openBoxes = {0}
     # have the keys
     keys = set(boxes[0])
