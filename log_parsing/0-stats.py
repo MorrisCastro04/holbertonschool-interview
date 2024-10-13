@@ -1,45 +1,29 @@
 #!/usr/bin/python3
-"""Script to get stats from a request"""
-
+"""Log parsing"""
 import sys
 
-codes = {}
-status_codes = ['200', '301', '400', '401', '403', '404', '405', '500']
-count = 0
-size = 0
 
+i = 0
+FileSize = 0
+STATUS = {'200': 0, '301': 0,
+          '400': 0, '401': 0,
+          '403': 0, '404': 0,
+          '405': 0, '500': 0}
 try:
-    for ln in sys.stdin:
-        if count == 10:
-            print("File size: {}".format(size))
-            for key in sorted(codes):
-                print("{}: {}".format(key, codes[key]))
-            count = 1
-        else:
-            count += 1
-
-        ln = ln.split()
-
-        try:
-            size = size + int(ln[-1])
-        except (IndexError, ValueError):
-            pass
-
-        try:
-            if ln[-2] in status_codes:
-                if codes.get(ln[-2], -1) == -1:
-                    codes[ln[-2]] = 1
-                else:
-                    codes[ln[-2]] += 1
-        except IndexError:
-            pass
-
-    print("File size: {}".format(size))
-    for key in sorted(codes):
-        print("{}: {}".format(key, codes[key]))
-
-except KeyboardInterrupt:
-    print("File size: {}".format(size))
-    for key in sorted(codes):
-        print("{}: {}".format(key, codes[key]))
-    raise
+    for line in sys.stdin:
+        i += 1
+        sp = line.split(' ')
+        if len(sp) > 2:
+            FileSize += int(sp[-1])
+            if sp[-2] in STATUS:
+                STATUS[sp[-2]] += 1
+        if i % 10 == 0:
+            print("File size: {}".format(FileSize))
+            for key, value in sorted(STATUS.items()):
+                if value != 0:
+                    print("{}: {}".format(key, value))
+finally:
+    print("File size: {}".format(FileSize))
+    for key, value in sorted(STATUS.items()):
+        if value != 0:
+            print("{}: {:d}".format(key, value))
